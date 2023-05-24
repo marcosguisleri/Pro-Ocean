@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quiz</title>
+  <style>
+
+    body {
+        font-family: Arial, sans-serif;
+      }
+      
+      h1 {
+        text-align: center;
+      }
+      
+      #question {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      
+      #choices {
+        margin-bottom: 20px;
+      }
+      
+      #submit {
+        display: block;
+        margin: 0 auto;
+      }
+      
+      #result {
+        text-align: center;
+        margin-top: 20px;
+      }      
+
+  </style>
+</head>
+<body>
+
+  <h1>Quiz</h1>
+  <div id="question"></div>
+  <div id="choices"></div>
+  <button id="submit">Submit</button>
+  <div id="result"></div>
+
+  <script>
+
+    // Defina as perguntas e respostas
+        var questions = [
+        {
+        question: "Qual é a capital da França?",
+        choices: ["Paris", "Londres", "Madri", "Berlim"],
+        correctAnswer: 0
+        },
+        {
+        question: "Quem pintou a Mona Lisa?",
+        choices: ["Leonardo da Vinci", "Pablo Picasso", "Vincent van Gogh", "Michelangelo"],
+        correctAnswer: 0
+        },
+        {
+        question: "Qual é a maior montanha do mundo?",
+        choices: ["Monte Everest", "Monte Kilimanjaro", "Monte Fuji", "Monte Aconcágua"],
+        correctAnswer: 0
+        }
+        ];
+
+        var currentQuestion = 0;
+        var score = 0;
+
+        var questionElement = document.getElementById('question');
+        var choicesElement = document.getElementById('choices');
+        var submitButton = document.getElementById('submit');
+        var resultElement = document.getElementById('result');
+
+        function displayQuestion() {
+        var q = questions[currentQuestion];
+        questionElement.textContent = q.question;
+
+        choicesElement.innerHTML = '';
+        for (var i = 0; i < q.choices.length; i++) {
+        var choice = document.createElement('input');
+        choice.type = 'radio';
+        choice.name = 'choices';
+        choice.value = i;
+        choice.required = true;
+        
+        var label = document.createElement('label');
+        label.textContent = q.choices[i];
+        
+        choicesElement.appendChild(choice);
+        choicesElement.appendChild(label);
+        choicesElement.appendChild(document.createElement('br'));
+        }
+        }
+
+        function checkAnswer() {
+        var choices = document.getElementsByName('choices');
+        for (var i = 0; i < choices.length; i++) {
+        if (choices[i].checked) {
+            var choice = parseInt(choices[i].value);
+            if (choice === questions[currentQuestion].correctAnswer) {
+            score++;
+            resultElement.textContent = 'Resposta correta!';
+            } else {
+            resultElement.textContent = 'Resposta incorreta!';
+            }
+            break;
+        }
+        }
+
+            currentQuestion++;
+
+            if (currentQuestion < questions.length) {
+            displayQuestion();
+            } else {
+            questionElement.textContent = '';
+            choicesElement.style.display = 'none';
+            submitButton.style.display = 'none';
+            
+            resultElement.textContent = 'Você acertou ' + score + ' de ' + questions.length + ' perguntas.';
+            }
+            }
+
+            displayQuestion();
+            submitButton.addEventListener('click', checkAnswer);
+
+  </script>
+
+</body>
+</html>
