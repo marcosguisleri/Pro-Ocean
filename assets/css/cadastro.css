@@ -1,0 +1,15 @@
+body{
+    background-color: #FFFFFF;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+}
+
+#link:hover {
+    color: #4169E1;
+}
